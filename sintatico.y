@@ -1,13 +1,14 @@
 %{
 #include <iostream>
 #include <string>
-#include <sstream>
 
 #define YYSTYPE atributos
 
 using namespace std;
 
 int var_temp_qnt;
+int linha = 1;
+string codigo_gerado;
 
 struct atributos
 {
@@ -20,78 +21,34 @@ void yyerror(string);
 string gentempcode();
 %}
 
-%token TK_NUM TK_REAL TK_CHAR
-%token TK_MAIN TK_ID TK_TIPO_INT
+%token TK_NUM
 
 %start S
 
-%right '='
-%left '+' '-'
-%left '*' '/'
+%left '+'
 
 %%
 
-S 			: TK_TIPO_INT TK_MAIN '(' ')' BLOCO
+S 			: E
 			{
-				string codigo = "/*Compilador FOCA*/\n"
-								"#include <iostream>\n"
-								"#include <string.h>\n"
+				codigo_gerado = "/*Compilador FOCA*/\n"
 								"#include <stdio.h>\n"
 								"int main(void) {\n";
-								
-				codigo += $5.traducao;
-								
-				codigo += 	"\treturn 0;"
-							"\n}";
 
-				cout << codigo << endl;
-			}
-			;
+				codigo_gerado += $1.traducao;
 
-BLOCO		: '{' COMANDOS '}'
-			{
-				$$.traducao = $2.traducao;
-			}
-			;
-
-COMANDOS	: COMANDO COMANDOS
-			{
-				$$.traducao = $1.traducao + $2.traducao;
-			}
-			|
-			{
-				$$.traducao = "";
-			}
-			;
-
-COMANDO 	: E ';'
-			{
-				$$ = $1;
+				codigo_gerado += "\treturn 0;"
+							"\n}\n";
 			}
 			;
 
 E 			: E '+' E
 			{
 				$$.label = gentempcode();
-				$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + 
+				$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label +
 					" = " + $1.label + " + " + $3.label + ";\n";
 			}
-			| E '-' E
-			{
-				$$.label = gentempcode();
-				$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + 
-					" = " + $1.label + " - " + $3.label + ";\n";
-			}
-			| TK_ID '=' E
-			{
-				$$.traducao = $1.traducao + $3.traducao + "\t" + $1.label + " = " + $3.label + ";\n";
-			}
 			| TK_NUM
-			{
-				$$.label = gentempcode();
-				$$.traducao = "\t" + $$.label + " = " + $1.label + ";\n";
-			}
-			| TK_ID
 			{
 				$$.label = gentempcode();
 				$$.traducao = "\t" + $$.label + " = " + $1.label + ";\n";
@@ -114,13 +71,13 @@ int main(int argc, char* argv[])
 {
 	var_temp_qnt = 0;
 
-	yyparse();
+	if (yyparse() == 0)
+		cout << codigo_gerado;
 
 	return 0;
 }
 
 void yyerror(string MSG)
 {
-	cout << MSG << endl;
-	exit (0);
-}				
+	cerr << "Erro na linha " << linha << ": " << MSG << endl;
+}
