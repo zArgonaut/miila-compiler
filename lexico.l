@@ -23,9 +23,16 @@ ID    {LETRA}({LETRA}|{DIGITO})*
 "true"        { yylval.label = "1"; return TK_BOOL_VAL; }
 "false"       { yylval.label = "0"; return TK_BOOL_VAL; }
 
-[+\-*/()]     { return *yytext; }
+[+\-*/()<>!]   { return *yytext; }
 "="           { return *yytext; }
 ";"           { return *yytext; }
+
+"=="          { return TK_IGUAL; }
+"!="          { return TK_DIF; }
+"<="          { return TK_MEIG; }
+">="          { return TK_MAIG; }
+"&&"          { return TK_AND; }
+"||"          { return TK_OR; }
 
 [a-zA-Z][a-zA-Z0-9]* { yylval.label = yytext; return TK_ID; }
 
