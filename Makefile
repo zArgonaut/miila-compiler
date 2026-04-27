@@ -43,22 +43,23 @@ test: glf
 	echo "Resultado: $$pass passou, $$fail falhou"
 
 test-%: glf
-	@name=$(patsubst test-%,%,$@); \
+	@name=$$(echo $@ | sed 's/test-//'); \
 	foca=$$(ls exemplos/$${name}_*.foca 2>/dev/null | head -1); \
 	if [ -z "$$foca" ]; then \
 		echo "Exemplo nao encontrado para etapa $$name"; \
 		exit 1; \
 	fi; \
-	expected=$$(echo $$foca | sed 's/.foca/.expected/'); \
+	expected=$$(echo $$foca | sed 's/\.foca/.expected/'); \
 	echo "Entrada: $$foca"; \
 	echo "---"; \
 	./glf < $$foca; \
 	echo "---"; \
-	if diff <(./glf < $$foca 2>/dev/null) $$expected > /dev/null 2>&1; then \
+	./glf < $$foca 2>/dev/null > /tmp/foca_test_out.txt; \
+	if diff -q /tmp/foca_test_out.txt $$expected > /dev/null 2>&1; then \
 		echo "PASS"; \
 	else \
 		echo "FAIL - Diferenca:"; \
-		diff <(./glf < $$foca 2>/dev/null) $$expected; \
+		diff /tmp/foca_test_out.txt $$expected; \
 	fi
 
 clean:
