@@ -1,45 +1,71 @@
 %{
 #include <string>
+
 %}
 
-%option noyywrap
-
+ESPACO [ \t]
 DIGITO [0-9]
-NUM {DIGITO}+
+LETRA [A-Za-z_]
 
-LETRA [a-zA-Z]
-ID    {LETRA}({LETRA}|{DIGITO})*
+DELIM {ESPACO}+
+NUM {DIGITO}+
+REAL {NUM}+("."{NUM}+)?
+CHAR \'({LETRA}|{DIGITO})\'
+BOOL ("True"|"False")
+ID {LETRA}({LETRA}|{NUM})*
 
 %%
 
-"\n"          { linha++; }
-[ \t\r]+      { ; }
+"\n"		{}
 
-"int"         { return TK_TIPO_INT; }
-"float"       { return TK_TIPO_FLOAT; }
-"char"        { return TK_TIPO_CHAR; }
-"bool"        { return TK_TIPO_BOOL; }
+{DELIM} 	{}
 
-"true"        { yylval.label = "1"; return TK_BOOL_VAL; }
-"false"       { yylval.label = "0"; return TK_BOOL_VAL; }
+"main"		{return TK_MAIN;}
 
-[+\-*/()<>!]   { return *yytext; }
-"="           { return *yytext; }
-";"           { return *yytext; }
+ /* comands */
+"if"        {yylval.label = yytext; return TK_IF;}
+"else"      {yylval.label = yytext; return TK_ELSE;}
+"switch"    {yylval.label = yytext; return TK_SWITCH;}
+"case"      {yylval.label = yytext; return TK_CASE;}
+"default"   {yylval.label = yytext; return TK_DEFAULT;}
+"do"        {yylval.label = yytext; return TK_DO;}
+"while"     {yylval.label = yytext; return TK_WHILE;}
+"for"       {yylval.label = yytext; return TK_FOR;}
+"scan"      {yylval.label = yytext; return TK_SCAN;}
+"print"     {yylval.label = yytext; return TK_PRINT;}
+"break"     {yylval.label = yytext; return TK_BREAK;}
+"continue"  {yylval.label = yytext; return TK_CONTINUE;}
 
-"=="          { return TK_IGUAL; }
-"!="          { return TK_DIF; }
-"<="          { return TK_MEIG; }
-">="          { return TK_MAIG; }
-"&&"          { return TK_AND; }
-"||"          { return TK_OR; }
+ /* variables types */
+"int"		{return TK_TYPE_INT;}
+"float"     {return TK_TYPE_FLOAT;}
+"bool"      {return TK_TYPE_BOOL;}
+"char"      {return TK_TYPE_CHAR;}
 
-[a-zA-Z][a-zA-Z0-9]* { yylval.label = yytext; return TK_ID; }
+[(){}[\];,]	{ return *yytext; }
 
-{DIGITO}+"."{DIGITO}+ { yylval.label = yytext; return TK_FLOAT_VAL; }
-{NUM}         { yylval.label = yytext; return TK_NUM; }
-\'.\'         { yylval.label = yytext; return TK_CHAR_VAL; }
+ /* arithmetic operators */
+[+\-*/%]	{yylval.label = yytext; return *yytext; }
 
-.             { fprintf(stderr, "Caractere nao reconhecido: %s\n", yytext); }
+ /* relational operators */
+[>\<]       {yylval.label = yytext; return *yytext; }
+">="        {yylval.label = yytext; return TK_OP_GREATER_EQUAL; }
+"<="        {yylval.label = yytext; return TK_OP_LESS_EQUAL; }
+"=="        {yylval.label = yytext; return TK_OP_EQUAL; }
+"!="        {yylval.label = yytext; return TK_OP_DIF; }
+
+ /* logic operators */
+[!]         {yylval.label = yytext; return *yytext; }
+"&&"        {yylval.label = yytext; return TK_OP_AND; }
+"||"        {yylval.label = yytext; return TK_OP_OR; }
+
+"="		    { yylval.label = yytext; return '='; }
+
+{NUM}		{ yylval.label = yytext; return TK_NUM; }
+{BOOL}      { yylval.label = yytext; return TK_BOOL; }
+{ID}		{ yylval.label = yytext; return TK_ID; }
+{REAL}		{ yylval.label = yytext; return TK_REAL; }
+{CHAR}      { yylval.label = yytext; return TK_CHAR; }
+.			{ return *yytext; }
 
 %%
