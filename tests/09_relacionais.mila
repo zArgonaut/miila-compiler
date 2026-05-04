@@ -1,2 +1,2 @@
-bool R;
+boolean R;
 R = 3 < 5;

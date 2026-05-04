@@ -1,0 +1,4 @@
+boolean B1;
+boolean B2;
+boolean R;
+R = B1 && !B2;

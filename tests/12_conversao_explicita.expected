@@ -1,0 +1,11 @@
+#include <stdio.h>
+
+int main(void) {
+    int T1; /* I */
+    float T2; /* F */
+    int T3;
+
+    T3 = (int) T2;
+    T1 = T3;
+    return 0;
+}

@@ -35,6 +35,5 @@
 *.tab.h
 *.yy.c
 *.yy.h
-glf
-
-exemplo.aerith
+mila-compiler
+/memory/
