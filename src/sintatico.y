@@ -516,7 +516,6 @@ attributes makeCast(types targetType, const attributes& expr)
 
 void printProgram(const string& body)
 {
-    cout << "/* Mila Compiler - codigo intermediario em C */\n";
     cout << "#include <stdio.h>\n\n";
     cout << "int main(void) {\n";
 

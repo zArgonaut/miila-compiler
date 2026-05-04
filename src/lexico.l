@@ -2,7 +2,7 @@
 #include <string>
 %}
 
-%option noyywrap yylineno
+%option noyywrap yylineno never-interactive
 
 ESPACO      [ \t\r]
 DIGITO      [0-9]
