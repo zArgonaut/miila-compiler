@@ -1,0 +1,10 @@
+int A;
+int B;
+int C;
+A = 10;
+B = 0;
+C = ++A + ++A;
+mout(C);
+B = A--;
+mout(A);
+mout(B);

@@ -1,0 +1,6 @@
+int N;
+N = 0;
+do {
+    N = N + 1;
+} while (N < 3);
+mout(N);

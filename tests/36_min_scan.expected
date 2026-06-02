@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+int main(void) {
+    int T1; /* N */
+    float T2; /* F */
+    char T3; /* C */
+    int T4;
+    float T5;
+    char T6;
+
+    scanf("%d", &T4);
+    T1 = T4;
+    scanf("%f", &T5);
+    T2 = T5;
+    scanf(" %c", &T6);
+    T3 = T6;
+    printf("%d\n", T1);
+    printf("%f\n", T2);
+    printf("%c\n", T3);
+    return 0;
+}

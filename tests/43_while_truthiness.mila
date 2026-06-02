@@ -1,0 +1,6 @@
+int X;
+X = 5;
+while (X) {
+    X = X - 1;
+}
+mout(X);

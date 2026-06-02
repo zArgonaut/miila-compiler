@@ -1,0 +1,16 @@
+int I;
+int J;
+int found;
+found = 0;
+I = 0;
+while I < 3 {
+    J = 0;
+    while J < 3 {
+        if I == 1 {
+            found = 1;
+            break all;
+        }
+        J = J + 1;
+    }
+    I = I + 1;
+}

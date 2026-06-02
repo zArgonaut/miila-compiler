@@ -1,0 +1,10 @@
+int X;
+X = 7;
+match X {
+    7 -> {
+        mout(X);
+    },
+    _ -> {
+        mout(X);
+    }
+}

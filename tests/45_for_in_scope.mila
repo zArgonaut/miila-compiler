@@ -1,0 +1,6 @@
+char C;
+C = 'z';
+for C in "abc" {
+    mout(C);
+}
+mout(C);

@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+int main(void) {
+    int T1; /* X */
+    int T2;
+    int T3;
+    int T4;
+    int T5; /* X */
+    int T6;
+
+    T2 = 10;
+    T1 = T2;
+    T3 = 5;
+    T4 = T1 > T3;
+    if (!T4) goto L1;
+    T6 = 20;
+    T5 = T6;
+    L1: ;
+    return 0;
+}

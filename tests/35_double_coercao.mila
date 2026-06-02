@@ -1,0 +1,6 @@
+int I;
+float F;
+double D;
+I = 2;
+F = 3.0;
+D = I + F;

@@ -1,0 +1,7 @@
+int X;
+X = 5;
+log(X);
+if X < 0 {
+    error(X);
+}
+mout(X);

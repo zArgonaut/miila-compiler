@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+int main(void) {
+    int T1; /* A */
+    int T2; /* B */
+    int T3; /* C */
+    int T4;
+    int T5;
+    int T6;
+    int T7;
+    int T8;
+    int T9;
+    int T10;
+    int T11;
+    int T12;
+    int T13;
+
+    T4 = 5;
+    T1 = T4;
+    T5 = 5;
+    T2 = T5;
+    T6 = 0;
+    T3 = T6;
+    T7 = 1;
+    T8 = T1 + T7;
+    T1 = T8;
+    T9 = T2;
+    T10 = 1;
+    T11 = T2 - T10;
+    T2 = T11;
+    T12 = 1;
+    T13 = T1 + T12;
+    T1 = T13;
+    T3 = T13;
+    return 0;
+}

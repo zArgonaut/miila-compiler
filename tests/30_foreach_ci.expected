@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(void) {
+    char T1; /* C */
+    char T2;
+    char T3;
+    int T4;
+    int T5;
+    int T6;
+
+    T2 = 'a';
+    T1 = T2;
+    T4 = 0;
+    T5 = strlen("abc");
+    L1: ;
+    T6 = T4 < T5;
+    if (!T6) goto L3;
+    T3 = "abc"[T4];
+    printf("%c\n", T3);
+    L2: ;
+    T4 = T4 + 1;
+    goto L1;
+    L3: ;
+    return 0;
+}

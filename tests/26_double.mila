@@ -1,0 +1,8 @@
+double D;
+int I;
+float F;
+D = 3.14;
+I = 10;
+D = I + D;
+F = 2.5;
+D = F + D;

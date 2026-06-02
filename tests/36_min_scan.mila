@@ -1,0 +1,9 @@
+int N;
+float F;
+char C;
+N = min(int);
+F = scan(float);
+C = min(char);
+mout(N);
+mout(F);
+mout(C);

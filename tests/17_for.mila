@@ -1,0 +1,6 @@
+int I;
+int S;
+S = 0;
+for I = 0; I < 3; I = I + 1 {
+    S = S + 1;
+}

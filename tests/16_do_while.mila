@@ -1,0 +1,5 @@
+int I;
+I = 0;
+do {
+    I = I + 1;
+} while I < 3;

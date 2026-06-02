@@ -1,0 +1,4 @@
+int N;
+N = 42;
+mout(N);
+print(N);

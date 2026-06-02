@@ -1,0 +1,4 @@
+string S;
+S = "hello";
+mout(S);
+print(S);

@@ -3,6 +3,11 @@ CC        ?= gcc
 CXXFLAGS  ?= -Wall -Wextra -g -std=c++17
 CFLAGS_GEN ?= -Wall -Wextra -std=c11
 
+# Fix: MSYS2 via Claude Code não herda TMP do Windows; sem isso g++ falha
+export TMPDIR := /tmp
+export TMP    := /tmp
+export TEMP   := /tmp
+
 FLEX       ?= flex
 BISON      ?= bison
 BISON_FLAGS = -d
@@ -52,7 +57,7 @@ test: $(TARGET)
 			echo "FAIL: $$name (arquivo expected ausente)"; \
 			fail=$$((fail + 1)); \
 		elif ./$(TARGET) < $$input > $$output; then \
-			if diff -u $$expected $$output > /tmp/$$name.diff; then \
+			if diff -u --strip-trailing-cr $$expected $$output > /tmp/$$name.diff; then \
 				echo "PASS: $$name"; \
 				pass=$$((pass + 1)); \
 			else \
@@ -78,7 +83,7 @@ test-%: $(TARGET)
 	expected="$${input%.mila}.expected"; \
 	output="/tmp/mila_test_$*.out"; \
 	./$(TARGET) < $$input > $$output; \
-	diff -u $$expected $$output
+	diff -u --strip-trailing-cr $$expected $$output
 
 debug: BISON_FLAGS += -Wcounterexamples
 

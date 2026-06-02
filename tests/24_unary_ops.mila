@@ -1,0 +1,9 @@
+int A;
+int B;
+int C;
+A = 5;
+B = 5;
+C = 0;
+++A;
+B--;
+C = ++A;

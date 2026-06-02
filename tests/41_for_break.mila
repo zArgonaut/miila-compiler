@@ -1,0 +1,10 @@
+int I;
+int S;
+S = 0;
+for I = 0; I < 10; I = I + 1 {
+    if I == 5 {
+        break;
+    }
+    S = S + I;
+}
+mout(S);

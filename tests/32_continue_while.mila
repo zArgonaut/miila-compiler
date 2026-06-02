@@ -1,0 +1,11 @@
+int I;
+int S;
+I = 0;
+S = 0;
+while I < 5 {
+    I = I + 1;
+    if I == 3 {
+        continue;
+    }
+    S = S + I;
+}

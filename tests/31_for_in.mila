@@ -1,0 +1,7 @@
+char CH;
+foreach "xy" {
+    mout(ci);
+}
+for CH in "mn" {
+    mout(CH);
+}

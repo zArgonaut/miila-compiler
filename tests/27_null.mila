@@ -1,0 +1,5 @@
+int X;
+X = 10;
+if X == null {
+    X = 0;
+}

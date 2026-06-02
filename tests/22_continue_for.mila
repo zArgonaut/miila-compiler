@@ -1,0 +1,9 @@
+int I;
+int S;
+S = 0;
+for I = 0; I < 5; I = I + 1 {
+    if I == 2 {
+        continue;
+    }
+    S = S + I;
+}

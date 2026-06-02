@@ -1,0 +1,5 @@
+char C;
+C = 'a';
+foreach "abc" {
+    mout(ci);
+}

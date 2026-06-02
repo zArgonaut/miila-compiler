@@ -1,0 +1,7 @@
+char CH;
+for CH in "abcde" {
+    if CH == 'c' {
+        continue;
+    }
+    mout(CH);
+}
