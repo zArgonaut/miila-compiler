@@ -1,6 +1,6 @@
 CXX       ?= g++
 CC        ?= gcc
-CXXFLAGS  ?= -Wall -Wextra -g -std=c++17
+CXXFLAGS  ?= -Wall -Wextra -g -std=c++17 -static-libgcc -static-libstdc++
 CFLAGS_GEN ?= -Wall -Wextra -std=c11
 
 # Fix: MSYS2 via Claude Code não herda TMP do Windows; sem isso g++ falha
