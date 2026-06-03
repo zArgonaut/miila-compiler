@@ -2,7 +2,48 @@
 
 Mila Compiler é uma reformulação acadêmica do projeto FOCA para a disciplina de Compiladores da UFRRJ. O compilador lê programas escritos na linguagem imperativa `mila-lang` e gera código intermediário em C, com temporários explícitos e declarações emitidas antes das instruções.
 
-A implementação atual corresponde à Etapa I do planejamento do trabalho: expressões aritméticas, parênteses, atribuição, declarações, tipos primitivos, operadores relacionais, operadores lógicos, coerção implícita `int -> float` e cast explícito.
+## Início rápido
+
+**1. Clone e compile:**
+
+```bash
+git clone <url-do-repositorio>
+cd miila-compiler
+make
+```
+
+**2. Crie seu programa Milla:**
+
+Crie qualquer arquivo com extensão `.milla` — pode ficar em qualquer pasta. Exemplo:
+
+```bash
+# cria o arquivo
+touch meu_programa.milla
+```
+
+Abra e escreva seu código Milla, por exemplo:
+
+```
+int x;
+int y;
+x = 10;
+y = x + 5;
+print(y);
+```
+
+**3. Execute:**
+
+```bash
+# imprime o código intermediário em C no terminal
+make run FILE=meu_programa.milla
+
+# gera o C intermediário, compila com GCC e executa
+make verify FILE=meu_programa.milla
+```
+
+---
+
+A implementação cobre a Etapa I (expressões, tipos, declarações, operadores, coerção) e a Etapa II (controle de fluxo, escopos, strings, I/O, laços `for`/`foreach`/`while`).
 
 ## Requisitos
 

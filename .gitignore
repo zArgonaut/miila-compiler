@@ -37,3 +37,7 @@
 *.yy.h
 mila-compiler
 /memory/
+/graphify-out/
+/.claude/
+/docs/
+CLAUDE.md

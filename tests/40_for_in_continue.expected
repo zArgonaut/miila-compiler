@@ -1,24 +1,21 @@
 #include <stdio.h>
-#include <string.h>
 
 int main(void) {
     char T1; /* CH */
     char T2; /* CH */
     int T3;
     int T4;
-    int T5;
-    char T6;
-    int T7;
+    char T5;
+    int T6;
 
     T3 = 0;
-    T4 = strlen("abcde");
     L3: ;
-    T5 = T3 < T4;
-    if (!T5) goto L2;
     T2 = "abcde"[T3];
-    T6 = 'c';
-    T7 = T2 == T6;
-    if (!T7) goto L4;
+    T4 = T2 != '\0';
+    if (!T4) goto L2;
+    T5 = 'c';
+    T6 = T2 == T5;
+    if (!T6) goto L4;
     goto L1;
     L4: ;
     printf("%c\n", T2);

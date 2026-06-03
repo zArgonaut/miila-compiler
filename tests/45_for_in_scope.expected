@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 
 int main(void) {
     char T1; /* C */
@@ -7,16 +6,14 @@ int main(void) {
     char T3; /* C */
     int T4;
     int T5;
-    int T6;
 
     T2 = 'z';
     T1 = T2;
     T4 = 0;
-    T5 = strlen("abc");
     L3: ;
-    T6 = T4 < T5;
-    if (!T6) goto L2;
     T3 = "abc"[T4];
+    T5 = T3 != '\0';
+    if (!T5) goto L2;
     printf("%c\n", T3);
     L1: ;
     T4 = T4 + 1;

@@ -46,7 +46,6 @@ struct IterState {
 
 static int var_temp_qnt = 0;
 static int label_counter = 0;
-static bool uses_strings = false;
 static bool uses_exit = false;
 static vector<symbol> declarations;
 static vector<map<string, symbol>> scope_stack;
@@ -86,6 +85,7 @@ attributes makeLogicalNot(const attributes& expr);
 attributes makeCast(types targetType, const attributes& expr);
 attributes makeIoOut(const string& funcName, const attributes& expr);
 attributes makeMin(types type);
+symbol* findSymbol(const string& name);
 void checkCondition(const attributes& cond);
 void printProgram(const string& body);
 %}
@@ -182,6 +182,8 @@ COMMAND
     | LOG_STMT ';'
       { $$ = $1; }
     | ERROR_STMT ';'
+      { $$ = $1; }
+    | MIN_STMT ';'
       { $$ = $1; }
     | TK_BREAK ';'
       {
@@ -381,18 +383,16 @@ FOR_STMT
       }
     ;
 
-/* for...in: itera sobre string (char a char) */
+/* for...in: itera sobre string (char a char) usando verificacao de null-terminator */
 FOR_IN_STMT
     : TK_FOR TK_ID TK_IN E
       {
           pushScope();
           string id_name = $2.label;
           string t_src = $4.label;
-          uses_strings = true;
 
           symbol s_item = declareSymbol(id_name, t_char);
           symbol s_idx  = createTemp(t_int);
-          symbol s_len  = createTemp(t_int);
           symbol s_cond = createTemp(t_bool);
 
           string lu = newLabel(), le = newLabel();
@@ -402,7 +402,7 @@ FOR_IN_STMT
           IterState is;
           is.t_coll   = t_src;
           is.t_idx    = s_idx.address;
-          is.t_len    = s_len.address;
+          is.t_len    = "";   /* nao usado: sem strlen */
           is.t_cond   = s_cond.address;
           is.t_item   = s_item.address;
           is.l_top    = ls;
@@ -411,8 +411,7 @@ FOR_IN_STMT
           iter_stack.push_back(is);
 
           $$.translation = $4.translation
-              + "    " + s_idx.address + " = 0;\n"
-              + "    " + s_len.address + " = strlen(" + t_src + ");\n";
+              + "    " + s_idx.address + " = 0;\n";
           $$.label = "";
           $$.type = t_null;
           $$.parenthesized = false;
@@ -424,11 +423,12 @@ FOR_IN_STMT
           loop_stack.pop_back();
           popScope();
 
+          /* le char ANTES da verificacao; para em '\0' */
           $$.translation = $5.translation
               + "    " + is.l_top + ": ;\n"
-              + "    " + is.t_cond + " = " + is.t_idx + " < " + is.t_len + ";\n"
-              + "    if (!" + is.t_cond + ") goto " + is.l_end + ";\n"
               + "    " + is.t_item + " = " + is.t_coll + "[" + is.t_idx + "];\n"
+              + "    " + is.t_cond + " = " + is.t_item + " != '\\0';\n"
+              + "    if (!" + is.t_cond + ") goto " + is.l_end + ";\n"
               + $6.translation
               + "    " + is.l_update + ": ;\n"
               + "    " + is.t_idx + " = " + is.t_idx + " + 1;\n"
@@ -440,16 +440,14 @@ FOR_IN_STMT
       }
     ;
 
-/* foreach: itera sobre string com variavel implicita ci */
+/* foreach: itera sobre string com variavel implicita ci (sem strlen) */
 FOREACH_STMT
     : TK_FOREACH E
       {
-          uses_strings = true;
           string t_src = $2.label;
 
           symbol s_ci   = createTemp(t_char);
           symbol s_idx  = createTemp(t_int);
-          symbol s_len  = createTemp(t_int);
           symbol s_cond = createTemp(t_bool);
 
           ci_stack.push_back(s_ci.address);
@@ -460,7 +458,7 @@ FOREACH_STMT
           IterState is;
           is.t_coll   = t_src;
           is.t_idx    = s_idx.address;
-          is.t_len    = s_len.address;
+          is.t_len    = "";   /* nao usado: sem strlen */
           is.t_cond   = s_cond.address;
           is.t_item   = s_ci.address;
           is.l_top    = ls;
@@ -469,8 +467,7 @@ FOREACH_STMT
           iter_stack.push_back(is);
 
           $$.translation = $2.translation
-              + "    " + s_idx.address + " = 0;\n"
-              + "    " + s_len.address + " = strlen(" + t_src + ");\n";
+              + "    " + s_idx.address + " = 0;\n";
           $$.label = "";
           $$.type = t_null;
           $$.parenthesized = false;
@@ -482,11 +479,12 @@ FOREACH_STMT
           loop_stack.pop_back();
           ci_stack.pop_back();
 
+          /* le char ANTES da verificacao; para em '\0' */
           $$.translation = $3.translation
               + "    " + is.l_top + ": ;\n"
-              + "    " + is.t_cond + " = " + is.t_idx + " < " + is.t_len + ";\n"
-              + "    if (!" + is.t_cond + ") goto " + is.l_end + ";\n"
               + "    " + is.t_item + " = " + is.t_coll + "[" + is.t_idx + "];\n"
+              + "    " + is.t_cond + " = " + is.t_item + " != '\\0';\n"
+              + "    if (!" + is.t_cond + ") goto " + is.l_end + ";\n"
               + $4.translation
               + "    " + is.l_update + ": ;\n"
               + "    " + is.t_idx + " = " + is.t_idx + " + 1;\n"
@@ -498,14 +496,45 @@ FOREACH_STMT
       }
     ;
 
+/* min: leitura com escopo controlado
+   min(x)       — x deve estar declarado; le em variavel existente
+   min(tipo x)  — declara x (erro se ja existe); x fica acessivel no escopo atual */
+MIN_STMT
+    : TK_MIN '(' TK_ID ')'
+      {
+          symbol* var = findSymbol($3.label);
+          if (!var) yyerror("variavel '" + $3.label + "' nao declarada; declare com tipo antes ou use min(tipo nome)");
+          string fmt = "\"%" + formatSpec(var->type) + "\"";
+          if (var->type == t_char) fmt = "\" %c\"";
+          $$.translation = "    scanf(" + fmt + ", &" + var->address + ");\n";
+          $$.label = var->address;
+          $$.type = var->type;
+          $$.parenthesized = false;
+      }
+    | TK_MIN '(' TYPE TK_ID ')'
+      {
+          string varName = $4.label;
+          if (findSymbol(varName))
+              yyerror("variavel '" + varName + "' ja existe no escopo; use min(" + varName + ") para ler em variavel existente");
+          symbol var = declareSymbol(varName, $3.type);
+          string fmt = "\"%" + formatSpec(var.type) + "\"";
+          if (var.type == t_char) fmt = "\" %c\"";
+          $$.translation = "    scanf(" + fmt + ", &" + var.address + ");\n";
+          $$.label = var.address;
+          $$.type = var.type;
+          $$.parenthesized = false;
+      }
+    ;
+
 MOUT_STMT
     : TK_MOUT '(' E ')'
       { $$ = makeIoOut("printf", $3); }
     ;
 
+/* print: saida sem \n automatico (bloco de construcao) */
 PRINT_STMT
     : TK_PRINT '(' E ')'
-      { $$ = makeIoOut("printf", $3); }
+      { $$ = makeIoOut("printf_raw", $3); }
     ;
 
 LOG_STMT
@@ -707,12 +736,8 @@ E
           $$.translation = "";
           $$.parenthesized = false;
       }
-    | TK_MIN '(' TYPE ')'
-      { $$ = makeMin($3.type); }
     | TK_SCAN '(' TYPE ')'
       { $$ = makeMin($3.type); }
-    | TK_MIN '(' ')'
-      { $$ = makeMin(t_int); }
     | TK_SCAN '(' ')'
       { $$ = makeMin(t_int); }
     | TK_ID
@@ -790,10 +815,15 @@ bool isNumeric(types type)
 bool canAssign(types target, types source)
 {
     if (target == source) return true;
-    /* coercao implicita: int → float → double */
-    if (target == t_float && source == t_int) return true;
-    if (target == t_double && source == t_int) return true;
+    /* coercao implicita upcast: int → float → double */
+    if (target == t_float  && source == t_int)   return true;
+    if (target == t_double && source == t_int)   return true;
     if (target == t_double && source == t_float) return true;
+    /* downcast numerico (possivel perda de precisao — responsabilidade do programador) */
+    if (target == t_int   && (source == t_float || source == t_double)) return true;
+    if (target == t_float && source == t_double) return true;
+    /* bool aceita int: 0 = false, qualquer outro = true */
+    if (target == t_bool && source == t_int) return true;
     /* null pode ser atribuido a qualquer tipo (valor 0/NULL) */
     if (source == t_null) return true;
     return false;
@@ -1116,21 +1146,28 @@ attributes makeCast(types targetType, const attributes& expr)
 
 attributes makeIoOut(const string& funcName, const attributes& expr)
 {
-    string fmt;
+    /* mout: adiciona \n automatico (saida simples e completa)
+       print: sem \n (bloco de construcao de saida complexa)
+       log/error: vai para stderr */
+    string fmtSpec;
     switch (expr.type) {
         case t_float:
-        case t_double: fmt = "\"%f\\n\""; break;
-        case t_char:   fmt = "\"%c\\n\""; break;
-        case t_string: fmt = "\"%s\\n\""; break;
-        default:       fmt = "\"%d\\n\""; break;
+        case t_double: fmtSpec = "f"; break;
+        case t_char:   fmtSpec = "c"; break;
+        case t_string: fmtSpec = "s"; break;
+        default:       fmtSpec = "d"; break;
     }
+
+    bool with_newline = (funcName != "printf_raw");
+    bool is_stderr    = (funcName == "fprintf_stderr");
+    string fmt = "\"%" + fmtSpec + (with_newline ? "\\n" : "") + "\"";
 
     attributes result;
     result.label = "";
     result.type = t_null;
     result.parenthesized = false;
 
-    if (funcName == "fprintf_stderr") {
+    if (is_stderr) {
         result.translation = expr.translation + "    fprintf(stderr, " + fmt + ", " + expr.label + ");\n";
     } else {
         result.translation = expr.translation + "    printf(" + fmt + ", " + expr.label + ");\n";
@@ -1157,11 +1194,19 @@ attributes makeMin(types type)
     return result;
 }
 
+symbol* findSymbol(const string& name)
+{
+    for (int i = (int)scope_stack.size() - 1; i >= 0; i--) {
+        auto it = scope_stack[i].find(name);
+        if (it != scope_stack[i].end()) return &it->second;
+    }
+    return nullptr;
+}
+
 void printProgram(const string& body)
 {
     cout << "#include <stdio.h>\n";
-    if (uses_strings) cout << "#include <string.h>\n";
-    if (uses_exit)   cout << "#include <stdlib.h>\n";
+    if (uses_exit) cout << "#include <stdlib.h>\n";
     cout << "\n";
 
     cout << "int main(void) {\n";

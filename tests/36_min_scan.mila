@@ -1,9 +1,5 @@
 int N;
-float F;
-char C;
-N = min(int);
-F = scan(float);
-C = min(char);
+min(N);
+min(float F);
 mout(N);
 mout(F);
-mout(C);
