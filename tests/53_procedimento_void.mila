@@ -1,0 +1,5 @@
+fnc saudar(string nome) {
+    mout("Ola, " + nome);
+}
+saudar("Milla");
+saudar("mundo");

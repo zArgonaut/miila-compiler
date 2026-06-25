@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+    int T1;
+    int T2;
+    int T3;
+    int T4;
+    int T5;
+    int T6;
+    int T7[2][3]; /* m : vetor[int] */
+    int T8;
+    int T9;
+    int T10;
+    int T11;
+    int T12;
+    int T13;
+    int T14;
+    int T15;
+    int T16;
+    int T17;
+
+    T1 = 1;
+    T7[0][0] = T1;
+    T2 = 2;
+    T7[0][1] = T2;
+    T3 = 3;
+    T7[0][2] = T3;
+    T4 = 4;
+    T7[1][0] = T4;
+    T5 = 5;
+    T7[1][1] = T5;
+    T6 = 6;
+    T7[1][2] = T6;
+    T9 = 0;
+    L1: ;
+    T11 = T9 < 2;
+    if (!T11) goto L5;
+    T10 = 0;
+    L2: ;
+    T12 = T10 < 3;
+    if (!T12) goto L4;
+    T8 = T7[T9][T10];
+    printf("%d\n", T8);
+    T10 = T10 + 1;
+    goto L2;
+    L4: ;
+    T9 = T9 + 1;
+    goto L1;
+    L5: ;
+    T15 = 0;
+    L6: ;
+    T16 = T15 < 3;
+    if (!T16) goto L10;
+    T14 = 0;
+    L7: ;
+    T17 = T14 < 2;
+    if (!T17) goto L9;
+    T13 = T7[T14][T15];
+    printf("%d\n", T13);
+    T14 = T14 + 1;
+    goto L7;
+    L9: ;
+    T15 = T15 + 1;
+    goto L6;
+    L10: ;
+    return 0;
+}

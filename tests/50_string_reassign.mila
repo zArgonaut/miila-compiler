@@ -1,0 +1,3 @@
+s = "first";
+s = "second";
+mout(s);

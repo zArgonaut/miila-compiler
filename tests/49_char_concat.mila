@@ -1,0 +1,4 @@
+g = 'a' + 'b';
+mout(g);
+saudacao = 'H' + "i";
+mout(saudacao);

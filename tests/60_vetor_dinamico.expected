@@ -1,0 +1,104 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+static int milla_idx(int i, int n) { if (i < 0 || i >= n) { fprintf(stderr, "erro: indice %d fora dos limites [0, %d)\n", i, n); exit(1); } return i; }
+
+int main(void) {
+    int T1;
+    int T2;
+    int* T3 = NULL; /* v : vetor[int] dinamico */
+    int T4 = 0;
+    int T5 = 0;
+    int T6;
+    int T7;
+    int T8;
+    int T9;
+    int T10;
+    int T11;
+    int* T12 = NULL; /* q : vetor[int] dinamico */
+    int T13 = 0;
+    int T14 = 0;
+    int T15;
+    int T16; /* i : inferida int */
+    int T17;
+    int T18;
+    int T19;
+    int T20;
+    int T21;
+    int T22;
+    int T23;
+    int T24;
+    int T25;
+    int T26;
+    int T27;
+
+    T3 = (int*) malloc(2 * sizeof(int));
+    T5 = 2;
+    T4 = 2;
+    T1 = 1;
+    T3[0] = T1;
+    T2 = 2;
+    T3[1] = T2;
+    T6 = 3;
+    if (T4 >= T5) {
+        T5 = T5 == 0 ? 4 : T5 * 2;
+        T3 = (int*) realloc(T3, T5 * sizeof(int));
+    }
+    T3[T4] = T6;
+    T4 = T4 + 1;
+    T7 = 4;
+    if (T4 >= T5) {
+        T5 = T5 == 0 ? 4 : T5 * 2;
+        T3 = (int*) realloc(T3, T5 * sizeof(int));
+    }
+    T3[T4] = T7;
+    T4 = T4 + 1;
+    T8 = 5;
+    if (T4 >= T5) {
+        T5 = T5 == 0 ? 4 : T5 * 2;
+        T3 = (int*) realloc(T3, T5 * sizeof(int));
+    }
+    T3[T4] = T8;
+    T4 = T4 + 1;
+    printf("%d\n", T4);
+    T10 = 0;
+    L1: ;
+    T11 = T10 < T4;
+    if (!T11) goto L3;
+    T9 = T3[T10];
+    printf("%d\n", T9);
+    T10 = T10 + 1;
+    goto L1;
+    L3: ;
+    T15 = 1;
+    T16 = T15;
+    L4: ;
+    T17 = 3;
+    T18 = T16 <= T17;
+    if (!T18) goto L6;
+    T22 = 10;
+    T23 = T16 * T22;
+    if (T13 >= T14) {
+        T14 = T14 == 0 ? 4 : T14 * 2;
+        T12 = (int*) realloc(T12, T14 * sizeof(int));
+    }
+    T12[T13] = T23;
+    T13 = T13 + 1;
+    T19 = T16;
+    T20 = 1;
+    T21 = T19 + T20;
+    T16 = T21;
+    goto L4;
+    L6: ;
+    T24 = 0;
+    T25 = T12[milla_idx(T24, T13)];
+    printf("%d\n", T25);
+    T26 = 2;
+    T27 = T12[milla_idx(T26, T13)];
+    printf("%d\n", T27);
+    printf("%d\n", T13);
+
+    free(T3);
+    free(T12);
+    return 0;
+}

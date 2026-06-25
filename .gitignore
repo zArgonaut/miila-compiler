@@ -31,11 +31,14 @@
 *.out
 *.app
 
+# Artefatos gerados pela compilacao (Bison/Flex/binario)
 *.tab.c
 *.tab.h
 *.yy.c
 *.yy.h
 mila-compiler
+
+# Ambiente de desenvolvimento — local apenas, fora do corpo do compilador
 /memory/
 /graphify-out/
 /.claude/

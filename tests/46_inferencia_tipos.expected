@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+static char* milla_str_dup(const char* s) { char* r = (char*) malloc(strlen(s) + 1); strcpy(r, s); return r; }
+
+int main(void) {
+    int T1;
+    int T2; /* i : inferida int */
+    double T3;
+    double T4; /* d : inferida double */
+    int T5;
+    int T6; /* b : inferida boolean */
+    char T7;
+    char T8; /* c : inferida char */
+    char* T9 = NULL; /* s : inferida string */
+
+    T1 = 42;
+    T2 = T1;
+    T3 = 3.14;
+    T4 = T3;
+    T5 = 1;
+    T6 = T5;
+    T7 = 'X';
+    T8 = T7;
+    free(T9);
+    T9 = milla_str_dup("milla");
+    printf("%d\n", T2);
+    printf("%f\n", T4);
+    printf("%d\n", T6);
+    printf("%c\n", T8);
+    printf("%s\n", T9);
+
+    free(T9);
+    return 0;
+}

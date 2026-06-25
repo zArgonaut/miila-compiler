@@ -1,0 +1,144 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+static int milla_idx(int i, int n) { if (i < 0 || i >= n) { fprintf(stderr, "erro: indice %d fora dos limites [0, %d)\n", i, n); exit(1); } return i; }
+
+int main(void) {
+    int* T1 = NULL; /* v : vetor[int] dinamico */
+    int T2 = 0;
+    int T3 = 0;
+    int T4;
+    int T5;
+    int T6;
+    int T7;
+    int T8;
+    int T9;
+    int T10; /* n */
+    int T11;
+    int T12; /* i : inferida int */
+    int T13;
+    int T14;
+    int T15;
+    int T16;
+    int T17;
+    int T18;
+    int T19; /* j : inferida int */
+    int T20;
+    int T21;
+    int T22;
+    int T23;
+    int T24;
+    int T25;
+    int T26;
+    int T27;
+    int T28;
+    int T29;
+    int T30;
+    int T31;
+    int T32; /* tmp */
+    int T33;
+    int T34;
+    int T35;
+    int T36;
+    int T37;
+    int T38;
+    int T39;
+    int T40;
+
+    T4 = 5;
+    if (T2 >= T3) {
+        T3 = T3 == 0 ? 4 : T3 * 2;
+        T1 = (int*) realloc(T1, T3 * sizeof(int));
+    }
+    T1[T2] = T4;
+    T2 = T2 + 1;
+    T5 = 2;
+    if (T2 >= T3) {
+        T3 = T3 == 0 ? 4 : T3 * 2;
+        T1 = (int*) realloc(T1, T3 * sizeof(int));
+    }
+    T1[T2] = T5;
+    T2 = T2 + 1;
+    T6 = 8;
+    if (T2 >= T3) {
+        T3 = T3 == 0 ? 4 : T3 * 2;
+        T1 = (int*) realloc(T1, T3 * sizeof(int));
+    }
+    T1[T2] = T6;
+    T2 = T2 + 1;
+    T7 = 1;
+    if (T2 >= T3) {
+        T3 = T3 == 0 ? 4 : T3 * 2;
+        T1 = (int*) realloc(T1, T3 * sizeof(int));
+    }
+    T1[T2] = T7;
+    T2 = T2 + 1;
+    T8 = 9;
+    if (T2 >= T3) {
+        T3 = T3 == 0 ? 4 : T3 * 2;
+        T1 = (int*) realloc(T1, T3 * sizeof(int));
+    }
+    T1[T2] = T8;
+    T2 = T2 + 1;
+    T9 = 3;
+    if (T2 >= T3) {
+        T3 = T3 == 0 ? 4 : T3 * 2;
+        T1 = (int*) realloc(T1, T3 * sizeof(int));
+    }
+    T1[T2] = T9;
+    T2 = T2 + 1;
+    T10 = T2;
+    T11 = 0;
+    T12 = T11;
+    L1: ;
+    T13 = 1;
+    T14 = T10 - T13;
+    T15 = T12 < T14;
+    if (!T15) goto L3;
+    T18 = 0;
+    T19 = T18;
+    L4: ;
+    T20 = 1;
+    T21 = T10 - T20;
+    T22 = T21 - T12;
+    T23 = T19 < T22;
+    if (!T23) goto L6;
+    T26 = T1[milla_idx(T19, T2)];
+    T27 = 1;
+    T28 = T19 + T27;
+    T29 = T1[milla_idx(T28, T2)];
+    T30 = T26 > T29;
+    if (!T30) goto L7;
+    T31 = T1[milla_idx(T19, T2)];
+    T32 = T31;
+    T33 = 1;
+    T34 = T19 + T33;
+    T35 = T1[milla_idx(T34, T2)];
+    T1[milla_idx(T19, T2)] = T35;
+    T36 = 1;
+    T37 = T19 + T36;
+    T1[milla_idx(T37, T2)] = T32;
+    L7: ;
+    T24 = 1;
+    T25 = T19 + T24;
+    T19 = T25;
+    goto L4;
+    L6: ;
+    T16 = 1;
+    T17 = T12 + T16;
+    T12 = T17;
+    goto L1;
+    L3: ;
+    T39 = 0;
+    L8: ;
+    T40 = T39 < T2;
+    if (!T40) goto L10;
+    T38 = T1[T39];
+    printf("%d\n", T38);
+    T39 = T39 + 1;
+    goto L8;
+    L10: ;
+
+    free(T1);
+    return 0;
+}

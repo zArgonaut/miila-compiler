@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+int media(int, int, int);
+
+int media(int T1 /* a */, int T2 /* b */, int T3 /* c */) {
+    int T4;
+    int T5;
+    int T6;
+    int T7;
+
+    T4 = T1 + T2;
+    T5 = T4 + T3;
+    T6 = 3;
+    T7 = T5 / T6;
+    return T7;
+    return 0;
+}
+
+int main(void) {
+    int T8;
+    int T9;
+    int T10;
+    int T11;
+
+    T8 = 10;
+    T9 = 20;
+    T10 = 30;
+    T11 = media(T8, T9, T10);
+    printf("%d\n", T11);
+    return 0;
+}

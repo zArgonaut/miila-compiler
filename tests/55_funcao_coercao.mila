@@ -1,0 +1,8 @@
+fnc double metade(int x) {
+    return x / 2.0;
+}
+fnc double soma_mista(int a, double b) {
+    return a + b;
+}
+mout(metade(7));
+mout(soma_mista(3, 1.5));

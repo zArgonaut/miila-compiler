@@ -1,0 +1,7 @@
+mout(2 ** 8);
+mout(2 ** 3 ** 2);
+mout(2 * 3 ** 2);
+double base = 1.5;
+mout(base ** 2);
+int n = 3;
+mout(10 ** n);

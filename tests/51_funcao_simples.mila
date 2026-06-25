@@ -1,0 +1,8 @@
+fnc int soma(int a, int b) {
+    return a + b;
+}
+fnc int quadrado(int x) {
+    return x * x;
+}
+resultado = soma(quadrado(3), quadrado(4));
+mout(resultado);

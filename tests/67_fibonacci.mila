@@ -1,0 +1,10 @@
+int fib[ext];
+push(fib, 0);
+push(fib, 1);
+for i = 2; i < 10; i = i + 1 {
+    int prox = fib[i - 1] + fib[i - 2];
+    push(fib, prox);
+}
+foreach fib {
+    mout(ci);
+}

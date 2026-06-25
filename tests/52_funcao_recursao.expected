@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+int fatorial(int);
+
+int fatorial(int T1 /* n */) {
+    int T2;
+    int T3;
+    int T4;
+    int T5;
+    int T6;
+    int T7;
+    int T8;
+
+    T2 = 1;
+    T3 = T1 <= T2;
+    if (!T3) goto L1;
+    T4 = 1;
+    return T4;
+    L1: ;
+    T5 = 1;
+    T6 = T1 - T5;
+    T7 = fatorial(T6);
+    T8 = T1 * T7;
+    return T8;
+    return 0;
+}
+
+int main(void) {
+    int T9;
+    int T10;
+    int T11;
+    int T12;
+
+    T9 = 5;
+    T10 = fatorial(T9);
+    printf("%d\n", T10);
+    T11 = 0;
+    T12 = fatorial(T11);
+    printf("%d\n", T12);
+    return 0;
+}

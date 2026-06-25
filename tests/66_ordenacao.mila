@@ -1,0 +1,22 @@
+int v[ext];
+push(v, 5);
+push(v, 2);
+push(v, 8);
+push(v, 1);
+push(v, 9);
+push(v, 3);
+
+int n = len(v);
+for i = 0; i < n - 1; i = i + 1 {
+    for j = 0; j < n - 1 - i; j = j + 1 {
+        if v[j] > v[j + 1] {
+            int tmp = v[j];
+            v[j] = v[j + 1];
+            v[j + 1] = tmp;
+        }
+    }
+}
+
+foreach v {
+    mout(ci);
+}

@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+static int milla_powi(int b, int e) { int r = 1; while (e > 0) { r *= b; e--; } return r; }
+
+static char* milla_str_dup(const char* s) { char* r = (char*) malloc(strlen(s) + 1); strcpy(r, s); return r; }
+static char* milla_strcat(const char* a, const char* b) { char* r = (char*) malloc(strlen(a) + strlen(b) + 1); strcpy(r, a); strcat(r, b); return r; }
+static char* milla_char_str(char c) { char* r = (char*) malloc(2); r[0] = c; r[1] = '\0'; return r; }
+static char* milla_int_str(int v) { char* r = (char*) malloc(16); snprintf(r, 16, "%d", v); return r; }
+static char* milla_bool_str(int v) { char* r = (char*) malloc(8); snprintf(r, 8, "%s", v ? "true" : "false"); return r; }
+
+int main(void) {
+    char* T1 = NULL; /* nome : inferida string */
+    int T2;
+    int T3; /* x : inferida int */
+    int T4;
+    int T5;
+    char* T6 = NULL;
+    char* T7 = NULL;
+    char* T8 = NULL;
+    char* T9 = NULL;
+    char* T10 = NULL;
+    char* T11 = NULL; /* mensagem : inferida string */
+    char T12;
+    int T13;
+    int T14;
+    int T15;
+    int T16;
+    char* T17 = NULL;
+    char* T18 = NULL;
+    char* T19 = NULL;
+    char* T20 = NULL;
+    char* T21 = NULL;
+    char* T22 = NULL;
+    char* T23 = NULL;
+    char* T24 = NULL;
+
+    free(T1);
+    T1 = milla_str_dup("Milla");
+    T2 = 42;
+    T3 = T2;
+    T4 = 8;
+    T5 = T3 + T4;
+    T6 = milla_int_str(T5);
+    T7 = milla_strcat("Ola, ", T1);
+    T8 = milla_strcat(T7, "! O valor e ");
+    free(T7);
+    T9 = milla_strcat(T8, T6);
+    free(T8);
+    free(T6);
+    T10 = milla_strcat(T9, ".");
+    free(T9);
+    free(T11);
+    T11 = milla_str_dup(T10);
+    free(T10);
+    printf("%s\n", T11);
+    T12 = 'A';
+    T17 = milla_char_str(T12);
+    T13 = 1;
+    T18 = milla_bool_str(T13);
+    T14 = 2;
+    T15 = 4;
+    T16 = milla_powi(T14, T15);
+    T19 = milla_int_str(T16);
+    T20 = milla_strcat("char ", T17);
+    free(T17);
+    T21 = milla_strcat(T20, ", bool ");
+    free(T20);
+    T22 = milla_strcat(T21, T18);
+    free(T21);
+    free(T18);
+    T23 = milla_strcat(T22, ", pow ");
+    free(T22);
+    T24 = milla_strcat(T23, T19);
+    free(T23);
+    free(T19);
+    printf("%s\n", T24);
+    free(T24);
+
+    free(T1);
+    free(T11);
+    return 0;
+}

@@ -1,0 +1,112 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+static int milla_idx(int i, int n) { if (i < 0 || i >= n) { fprintf(stderr, "erro: indice %d fora dos limites [0, %d)\n", i, n); exit(1); } return i; }
+
+int main(void) {
+    int T1;
+    int T2;
+    int T3;
+    int T4;
+    int T5;
+    int T6;
+    int T7[2][3]; /* m : vetor[int] */
+    int T8;
+    int T9;
+    int T10;
+    int T11;
+    int T12;
+    int T13;
+    int T14;
+    int T15;
+    int T16;
+    int T17;
+    int T18;
+    int T19;
+    int T20;
+    int T21[2][2]; /* t : vetor[int] */
+    int T22;
+    int T23; /* i : inferida int */
+    int T24;
+    int T25;
+    int T26;
+    int T27;
+    int T28;
+    int T29;
+    int T30; /* j : inferida int */
+    int T31;
+    int T32;
+    int T33;
+    int T34;
+    int T35;
+    int T36;
+    int T37;
+    int T38;
+    int T39;
+    int T40;
+    int T41;
+
+    T1 = 1;
+    T7[0][0] = T1;
+    T2 = 2;
+    T7[0][1] = T2;
+    T3 = 3;
+    T7[0][2] = T3;
+    T4 = 4;
+    T7[1][0] = T4;
+    T5 = 5;
+    T7[1][1] = T5;
+    T6 = 6;
+    T7[1][2] = T6;
+    T8 = 0;
+    T9 = 0;
+    T10 = T7[milla_idx(T8, 2)][milla_idx(T9, 3)];
+    printf("%d\n", T10);
+    T11 = 1;
+    T12 = 2;
+    T13 = T7[milla_idx(T11, 2)][milla_idx(T12, 3)];
+    printf("%d\n", T13);
+    T14 = 0;
+    T15 = 1;
+    T16 = 99;
+    T7[milla_idx(T14, 2)][milla_idx(T15, 3)] = T16;
+    T17 = 0;
+    T18 = 1;
+    T19 = T7[milla_idx(T17, 2)][milla_idx(T18, 3)];
+    printf("%d\n", T19);
+    T20 = 2;
+    printf("%d\n", T20);
+    T22 = 0;
+    T23 = T22;
+    L1: ;
+    T24 = 2;
+    T25 = T23 < T24;
+    if (!T25) goto L3;
+    T29 = 0;
+    T30 = T29;
+    L4: ;
+    T31 = 2;
+    T32 = T30 < T31;
+    if (!T32) goto L6;
+    T36 = 2;
+    T37 = T23 * T36;
+    T38 = T37 + T30;
+    T21[milla_idx(T23, 2)][milla_idx(T30, 2)] = T38;
+    T33 = T30;
+    T34 = 1;
+    T35 = T33 + T34;
+    T30 = T35;
+    goto L4;
+    L6: ;
+    T26 = T23;
+    T27 = 1;
+    T28 = T26 + T27;
+    T23 = T28;
+    goto L1;
+    L3: ;
+    T39 = 1;
+    T40 = 1;
+    T41 = T21[milla_idx(T39, 2)][milla_idx(T40, 2)];
+    printf("%d\n", T41);
+    return 0;
+}

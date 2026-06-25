@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+static int milla_idx(int i, int n) { if (i < 0 || i >= n) { fprintf(stderr, "erro: indice %d fora dos limites [0, %d)\n", i, n); exit(1); } return i; }
+
+int main(void) {
+    int T1;
+    int T2;
+    int T3;
+    int T4[3]; /* v : vetor[int] */
+    int T5;
+    int T6;
+    int T7;
+    int T8;
+    int T9;
+    int T10;
+    int T11;
+    int T12;
+    int T13; /* soma */
+    int T14;
+    int T15; /* i : inferida int */
+    int T16;
+    int T17;
+    int T18;
+    int T19;
+    int T20;
+    int T21;
+
+    T1 = 10;
+    T4[0] = T1;
+    T2 = 20;
+    T4[1] = T2;
+    T3 = 30;
+    T4[2] = T3;
+    T5 = 0;
+    T6 = T4[milla_idx(T5, 3)];
+    printf("%d\n", T6);
+    T7 = 1;
+    T8 = 99;
+    T4[milla_idx(T7, 3)] = T8;
+    T9 = 1;
+    T10 = T4[milla_idx(T9, 3)];
+    printf("%d\n", T10);
+    T11 = 3;
+    printf("%d\n", T11);
+    T12 = 0;
+    T13 = T12;
+    T14 = 0;
+    T15 = T14;
+    L1: ;
+    T16 = 3;
+    T17 = T15 < T16;
+    if (!T17) goto L3;
+    T20 = T4[milla_idx(T15, 3)];
+    T21 = T13 + T20;
+    T13 = T21;
+    T18 = 1;
+    T19 = T15 + T18;
+    T15 = T19;
+    goto L1;
+    L3: ;
+    printf("%d\n", T13);
+    return 0;
+}

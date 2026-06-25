@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+static char* milla_strcat(const char* a, const char* b) { char* r = (char*) malloc(strlen(a) + strlen(b) + 1); strcpy(r, a); strcat(r, b); return r; }
+
+void saudar(char*);
+
+void saudar(char* T1 /* nome */) {
+    char* T2 = NULL;
+
+    T2 = milla_strcat("Ola, ", T1);
+    printf("%s\n", T2);
+    free(T2);
+}
+
+int main(void) {
+
+    saudar("Milla");
+    saudar("mundo");
+    return 0;
+}

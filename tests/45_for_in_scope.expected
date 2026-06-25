@@ -15,7 +15,6 @@ int main(void) {
     T5 = T3 != '\0';
     if (!T5) goto L2;
     printf("%c\n", T3);
-    L1: ;
     T4 = T4 + 1;
     goto L3;
     L2: ;

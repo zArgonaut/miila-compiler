@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+double metade(int);
+double soma_mista(int, double);
+
+double metade(int T1 /* x */) {
+    double T2;
+    double T3;
+    double T4;
+
+    T2 = 2.0;
+    T3 = (double) T1;
+    T4 = T3 / T2;
+    return T4;
+    return 0;
+}
+
+double soma_mista(int T5 /* a */, double T6 /* b */) {
+    double T7;
+    double T8;
+
+    T7 = (double) T5;
+    T8 = T7 + T6;
+    return T8;
+    return 0;
+}
+
+int main(void) {
+    int T9;
+    double T10;
+    int T11;
+    double T12;
+    double T13;
+
+    T9 = 7;
+    T10 = metade(T9);
+    printf("%f\n", T10);
+    T11 = 3;
+    T12 = 1.5;
+    T13 = soma_mista(T11, T12);
+    printf("%f\n", T13);
+    return 0;
+}

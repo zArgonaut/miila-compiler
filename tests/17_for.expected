@@ -23,7 +23,6 @@ int main(void) {
     T9 = 1;
     T10 = T2 + T9;
     T2 = T10;
-    L2: ;
     T7 = 1;
     T8 = T1 + T7;
     T1 = T8;

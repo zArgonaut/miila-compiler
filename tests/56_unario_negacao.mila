@@ -1,0 +1,9 @@
+x = 5;
+y = -x;
+mout(y);
+a = 3;
+b = 4;
+mout(-a * b);
+d = -2.5;
+mout(d);
+mout(10 - -5);

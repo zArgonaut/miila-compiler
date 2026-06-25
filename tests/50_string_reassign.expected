@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+static char* milla_str_dup(const char* s) { char* r = (char*) malloc(strlen(s) + 1); strcpy(r, s); return r; }
+
+int main(void) {
+    char* T1 = NULL; /* s : inferida string */
+
+    free(T1);
+    T1 = milla_str_dup("first");
+    free(T1);
+    T1 = milla_str_dup("second");
+    printf("%s\n", T1);
+
+    free(T1);
+    return 0;
+}

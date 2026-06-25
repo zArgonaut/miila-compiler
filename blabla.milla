@@ -1,0 +1,21 @@
+fnc int quadrado(int x) {
+    return x ** 2;
+}
+
+int grade[][] = {{1, 2, 3}, {4, 5, 6}};
+
+string ordem_linha = "";
+foreach grade {
+    ordem_linha = ordem_linha + "#{ci} ";
+}
+
+string ordem_coluna = "";
+foreach grade by col {
+    ordem_coluna = ordem_coluna + "#{ci} ";
+}
+
+int valor = grade[1][2];
+
+mout("Visita linha-major:  #{ordem_linha}");
+mout("Visita coluna-major: #{ordem_coluna}");
+mout("grade[1][2] = #{valor}, ao quadrado = #{quadrado(valor)}");

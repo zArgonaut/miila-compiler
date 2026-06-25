@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+static char* milla_str_dup(const char* s) { char* r = (char*) malloc(strlen(s) + 1); strcpy(r, s); return r; }
+static char* milla_strcat(const char* a, const char* b) { char* r = (char*) malloc(strlen(a) + strlen(b) + 1); strcpy(r, a); strcat(r, b); return r; }
+
+int main(void) {
+    char* T1 = NULL; /* a : inferida string */
+    char* T2 = NULL; /* b : inferida string */
+    char* T3 = NULL;
+    char* T4 = NULL; /* c : inferida string */
+
+    free(T1);
+    T1 = milla_str_dup("Hello, ");
+    free(T2);
+    T2 = milla_str_dup("world");
+    T3 = milla_strcat(T1, T2);
+    free(T4);
+    T4 = milla_str_dup(T3);
+    free(T3);
+    printf("%s\n", T4);
+
+    free(T1);
+    free(T2);
+    free(T4);
+    return 0;
+}

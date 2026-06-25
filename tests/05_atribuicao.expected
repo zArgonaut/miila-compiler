@@ -1,16 +1,19 @@
 #include <stdio.h>
 
 int main(void) {
-    int T1; /* A : declaracao implicita int */
-    int T2;
+    int T1;
+    int T2; /* A : inferida int */
     int T3;
     int T4;
     int T5;
+    int T6;
 
-    T2 = 2;
-    T3 = T1 + T2;
-    T4 = 3;
-    T5 = T3 * T4;
-    T1 = T5;
+    T1 = 1;
+    T2 = T1;
+    T3 = 2;
+    T4 = T2 + T3;
+    T5 = 3;
+    T6 = T4 * T5;
+    T2 = T6;
     return 0;
 }

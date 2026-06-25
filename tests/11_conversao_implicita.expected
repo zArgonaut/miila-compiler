@@ -1,14 +1,14 @@
 #include <stdio.h>
 
 int main(void) {
-    float T1; /* F */
+    double T1; /* F */
     int T2; /* I */
-    float T3;
-    float T4;
-    float T5;
+    double T3;
+    double T4;
+    double T5;
 
     T3 = 2.5;
-    T4 = (float) T2;
+    T4 = (double) T2;
     T5 = T4 + T3;
     T1 = T5;
     return 0;

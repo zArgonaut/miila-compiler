@@ -1,0 +1,32 @@
+fnc int maior(int a, int b) {
+    if a > b { return a; }
+    return b;
+}
+
+int notas[ext];
+push(notas, 7);
+push(notas, 9);
+push(notas, 5);
+push(notas, 10);
+push(notas, 8);
+
+int soma = 0;
+int maxima = 0;
+foreach notas {
+    soma = soma + ci;
+    maxima = maior(maxima, ci);
+}
+int media = soma / len(notas);
+
+int aprovados = 0;
+foreach notas {
+    if ci >= 6 {
+        aprovados = aprovados + 1;
+    }
+}
+
+mout("Quantidade de notas: #{len(notas)}");
+mout("Soma total: #{soma}");
+mout("Media inteira: #{media}");
+mout("Maior nota: #{maxima}");
+mout("Aprovados com nota >= 6: #{aprovados}");

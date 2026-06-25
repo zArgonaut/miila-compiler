@@ -1,0 +1,12 @@
+int x = 5;
+double pi = 3.14;
+float f = 1.5;
+string s = "hi";
+bool flag = true;
+char ch = 'Z';
+mout(x);
+mout(pi);
+mout(f);
+mout(s);
+mout(flag);
+mout(ch);

@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+static char* milla_str_dup(const char* s) { char* r = (char*) malloc(strlen(s) + 1); strcpy(r, s); return r; }
+static char* milla_strcat(const char* a, const char* b) { char* r = (char*) malloc(strlen(a) + strlen(b) + 1); strcpy(r, a); strcat(r, b); return r; }
+static char* milla_int_str(int v) { char* r = (char*) malloc(16); snprintf(r, 16, "%d", v); return r; }
+
+int main(void) {
+    char* T1 = NULL; /* titulo : inferida string */
+    int T2;
+    int T3; /* total : inferida int */
+    int T4;
+    int T5;
+    char* T6 = NULL;
+    char* T7 = NULL;
+    char* T8 = NULL;
+    char* T9 = NULL;
+    char* T10 = NULL;
+    char* T11 = NULL;
+    char* T12 = NULL;
+    char* T13 = NULL;
+    char* T14 = NULL;
+    char* T15 = NULL;
+    char* T16 = NULL;
+    char* T17 = NULL;
+    char* T18 = NULL; /* texto : inferida string */
+
+    free(T1);
+    T1 = milla_str_dup("Relatorio");
+    T2 = 12;
+    T3 = T2;
+    T6 = milla_int_str(T3);
+    T4 = 2;
+    T5 = T3 * T4;
+    T7 = milla_int_str(T5);
+    T8 = milla_strcat("\n", "=== ");
+    T9 = milla_strcat(T8, T1);
+    free(T8);
+    T10 = milla_strcat(T9, " ===");
+    free(T9);
+    T11 = milla_strcat(T10, "\n");
+    free(T10);
+    T12 = milla_strcat(T11, "Total de itens: ");
+    free(T11);
+    T13 = milla_strcat(T12, T6);
+    free(T12);
+    free(T6);
+    T14 = milla_strcat(T13, "\n");
+    free(T13);
+    T15 = milla_strcat(T14, "Dobro: ");
+    free(T14);
+    T16 = milla_strcat(T15, T7);
+    free(T15);
+    free(T7);
+    T17 = milla_strcat(T16, "\n");
+    free(T16);
+    free(T18);
+    T18 = milla_str_dup(T17);
+    free(T17);
+    printf("%s\n", T18);
+
+    free(T1);
+    free(T18);
+    return 0;
+}

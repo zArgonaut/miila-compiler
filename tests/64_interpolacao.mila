@@ -1,0 +1,5 @@
+nome = "Milla";
+x = 42;
+mensagem = "Ola, #{nome}! O valor e #{x + 8}.";
+mout(mensagem);
+mout("char #{'A'}, bool #{true}, pow #{2 ** 4}");

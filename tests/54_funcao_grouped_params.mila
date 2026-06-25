@@ -1,0 +1,4 @@
+fnc int media(int a, b, c) {
+    return (a + b + c) / 3;
+}
+mout(media(10, 20, 30));

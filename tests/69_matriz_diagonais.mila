@@ -1,0 +1,14 @@
+int m[][] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+
+int principal = 0;
+for i = 0; i < 3; i = i + 1 {
+    principal = principal + m[i][i];
+}
+
+int secundaria = 0;
+for i = 0; i < 3; i = i + 1 {
+    secundaria = secundaria + m[i][2 - i];
+}
+
+mout("diagonal principal: #{principal}");
+mout("diagonal secundaria: #{secundaria}");

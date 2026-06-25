@@ -1,0 +1,7 @@
+int quadrados[5];
+for i = 0; i < 5; i++ {
+    quadrados[i] = i * i;
+}
+for i = 0; i < 5; i++ {
+    mout(quadrados[i]);
+}

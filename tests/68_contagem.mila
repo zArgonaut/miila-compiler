@@ -1,0 +1,10 @@
+int vogais = 0;
+int consoantes = 0;
+foreach "programacao" {
+    match ci {
+        'a', 'e', 'i', 'o', 'u' -> { vogais = vogais + 1; },
+        _ -> { consoantes = consoantes + 1; }
+    }
+}
+mout("vogais: #{vogais}");
+mout("consoantes: #{consoantes}");

@@ -1,8 +1,19 @@
 %{
 #include <string>
+extern int cur_line;
+extern int cur_col;
+extern int cur_tok_col;
+#define YY_USER_ACTION { yylval.line = yylineno; cur_line = yylineno; \
+                         yylval.col = cur_col; cur_tok_col = cur_col; cur_col += yyleng; }
+
+static int interp_stack[32];
+static int interp_sp = 0;
 %}
 
 %option noyywrap yylineno never-interactive
+
+%x STR
+%x MLSTR
 
 ESPACO      [ \t\r]
 DIGITO      [0-9]
@@ -11,11 +22,10 @@ ID          {LETRA}({LETRA}|{DIGITO})*
 NUM         {DIGITO}+
 REAL        {DIGITO}+"."{DIGITO}+
 CHAR        \'([^\\\'\n]|\\[nrt\\\'\"])\'
-STR         \"([^\\\"\n]|\\.)*\"
 
 %%
 
-"\n"                    { }
+"\n"                    { cur_col = 1; }
 {ESPACO}+               { }
 "//".*                  { }
 "/*"([^*]|\*+[^*/])*\*+"/"  { }
@@ -29,6 +39,12 @@ STR         \"([^\\\"\n]|\\.)*\"
 "break"                 { yylval.label = yytext; return TK_BREAK; }
 "continue"              { yylval.label = yytext; return TK_CONTINUE; }
 "match"                 { yylval.label = yytext; return TK_MATCH; }
+"fnc"                    { yylval.label = yytext; return TK_FNC; }
+"return"                 { yylval.label = yytext; return TK_RETURN; }
+"by"                     { yylval.label = yytext; return TK_BY; }
+"len"                    { yylval.label = yytext; return TK_LEN; }
+"push"                   { yylval.label = yytext; return TK_PUSH; }
+"ext"                    { yylval.label = yytext; return TK_EXT; }
 "mout"                  { yylval.label = yytext; return TK_MOUT; }
 "print"                 { yylval.label = yytext; return TK_PRINT; }
 "log"                   { yylval.label = yytext; return TK_LOG; }
@@ -58,6 +74,7 @@ STR         \"([^\\\"\n]|\\.)*\"
 "&&"                    { yylval.label = yytext; return TK_OP_AND; }
 "||"                    { yylval.label = yytext; return TK_OP_OR; }
 
+"**"                    { return TK_POW; }
 "++"                    { return TK_INC; }
 "--"                    { return TK_DEC; }
 "+="                    { return TK_PLUS_EQ; }
@@ -66,7 +83,11 @@ STR         \"([^\\\"\n]|\\.)*\"
 "/="                    { return TK_DIV_EQ; }
 "%="                    { return TK_MOD_EQ; }
 
-[(){}[\];,]             { return *yytext; }
+"}"                     {
+                            if (interp_sp > 0) { BEGIN(interp_stack[--interp_sp]); return TK_INTERP_END; }
+                            return '}';
+                        }
+[(){[\];,]              { return *yytext; }
 [+\-*/%]                { yylval.label = yytext; return *yytext; }
 [><]                    { yylval.label = yytext; return *yytext; }
 "!"                     { yylval.label = yytext; return *yytext; }
@@ -75,11 +96,27 @@ STR         \"([^\\\"\n]|\\.)*\"
 "->"                    { return TK_ARROW; }
 "_"                     { return TK_UNDERSCORE; }
 
-{STR}                   { yylval.label = yytext; return TK_STRING; }
+\"\"\"                  { BEGIN(MLSTR); return TK_STR_BEGIN; }
+\"                      { BEGIN(STR); return TK_STR_BEGIN; }
 {REAL}                  { yylval.label = yytext; return TK_REAL; }
 {NUM}                   { yylval.label = yytext; return TK_NUM; }
 {CHAR}                  { yylval.label = yytext; return TK_CHAR; }
 {ID}                    { yylval.label = yytext; return TK_ID; }
+
+<STR>\"                 { BEGIN(INITIAL); return TK_STR_END; }
+<STR>"#{"               { interp_stack[interp_sp++] = STR; BEGIN(INITIAL); return TK_INTERP_BEGIN; }
+<STR>\\.                { yylval.label = yytext; return TK_STR_CHARS; }
+<STR>"#"                { yylval.label = "#"; return TK_STR_CHARS; }
+<STR>[^"\\#\n]+         { yylval.label = yytext; return TK_STR_CHARS; }
+<STR>\n                 { yyerror("string de uma linha nao pode conter quebra de linha (use \"\"\" para multi-linha)"); BEGIN(INITIAL); cur_col = 1; return TK_STR_END; }
+
+<MLSTR>\"\"\"           { BEGIN(INITIAL); return TK_STR_END; }
+<MLSTR>"#{"             { interp_stack[interp_sp++] = MLSTR; BEGIN(INITIAL); return TK_INTERP_BEGIN; }
+<MLSTR>\\.              { yylval.label = yytext; return TK_STR_CHARS; }
+<MLSTR>\n               { cur_col = 1; yylval.label = "\\n"; return TK_STR_CHARS; }
+<MLSTR>\"               { yylval.label = "\\\""; return TK_STR_CHARS; }
+<MLSTR>"#"              { yylval.label = "#"; return TK_STR_CHARS; }
+<MLSTR>[^"\\#\n]+       { yylval.label = yytext; return TK_STR_CHARS; }
 
 .                       { yyerror(std::string("caractere nao reconhecido: ") + yytext); }
 

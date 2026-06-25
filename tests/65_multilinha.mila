@@ -1,0 +1,8 @@
+titulo = "Relatorio";
+total = 12;
+texto = """
+=== #{titulo} ===
+Total de itens: #{total}
+Dobro: #{total * 2}
+""";
+mout(texto);

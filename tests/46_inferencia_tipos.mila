@@ -1,0 +1,10 @@
+i = 42;
+d = 3.14;
+b = true;
+c = 'X';
+s = "milla";
+mout(i);
+mout(d);
+mout(b);
+mout(c);
+mout(s);

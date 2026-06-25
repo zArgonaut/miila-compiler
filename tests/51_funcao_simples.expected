@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+int soma(int, int);
+int quadrado(int);
+
+int soma(int T1 /* a */, int T2 /* b */) {
+    int T3;
+
+    T3 = T1 + T2;
+    return T3;
+    return 0;
+}
+
+int quadrado(int T4 /* x */) {
+    int T5;
+
+    T5 = T4 * T4;
+    return T5;
+    return 0;
+}
+
+int main(void) {
+    int T6;
+    int T7;
+    int T8;
+    int T9;
+    int T10;
+    int T11; /* resultado : inferida int */
+
+    T6 = 3;
+    T7 = quadrado(T6);
+    T8 = 4;
+    T9 = quadrado(T8);
+    T10 = soma(T7, T9);
+    T11 = T10;
+    printf("%d\n", T11);
+    return 0;
+}

@@ -4,9 +4,9 @@ int main(void) {
     double T1; /* D */
     int T2; /* I */
     float T3; /* F */
-    float T4;
-    double T5;
-    int T6;
+    double T4;
+    int T5;
+    double T6;
     double T7;
     double T8;
     float T9;
@@ -14,14 +14,14 @@ int main(void) {
     double T11;
 
     T4 = 3.14;
-    T5 = (double) T4;
-    T1 = T5;
-    T6 = 10;
-    T2 = T6;
-    T7 = (double) T2;
-    T8 = T7 + T1;
-    T1 = T8;
-    T9 = 2.5;
+    T1 = T4;
+    T5 = 10;
+    T2 = T5;
+    T6 = (double) T2;
+    T7 = T6 + T1;
+    T1 = T7;
+    T8 = 2.5;
+    T9 = (float) T8;
     T3 = T9;
     T10 = (double) T3;
     T11 = T10 + T1;

@@ -1,0 +1,56 @@
+#include <stdio.h>
+
+static int milla_powi(int b, int e) { int r = 1; while (e > 0) { r *= b; e--; } return r; }
+static double milla_powd(double b, int e) { double r = 1.0; int k = e < 0 ? -e : e; while (k > 0) { r *= b; k--; } return e < 0 ? 1.0 / r : r; }
+
+int main(void) {
+    int T1;
+    int T2;
+    int T3;
+    int T4;
+    int T5;
+    int T6;
+    int T7;
+    int T8;
+    int T9;
+    int T10;
+    int T11;
+    int T12;
+    int T13;
+    double T14;
+    double T15; /* base */
+    int T16;
+    double T17;
+    int T18;
+    int T19; /* n */
+    int T20;
+    int T21;
+
+    T1 = 2;
+    T2 = 8;
+    T3 = milla_powi(T1, T2);
+    printf("%d\n", T3);
+    T4 = 2;
+    T5 = 3;
+    T6 = 2;
+    T7 = milla_powi(T5, T6);
+    T8 = milla_powi(T4, T7);
+    printf("%d\n", T8);
+    T9 = 2;
+    T10 = 3;
+    T11 = 2;
+    T12 = milla_powi(T10, T11);
+    T13 = T9 * T12;
+    printf("%d\n", T13);
+    T14 = 1.5;
+    T15 = T14;
+    T16 = 2;
+    T17 = (double) milla_powd((double) T15, T16);
+    printf("%f\n", T17);
+    T18 = 3;
+    T19 = T18;
+    T20 = 10;
+    T21 = milla_powi(T20, T19);
+    printf("%d\n", T21);
+    return 0;
+}

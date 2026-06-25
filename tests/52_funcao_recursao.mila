@@ -1,0 +1,8 @@
+fnc int fatorial(int n) {
+    if n <= 1 {
+        return 1;
+    }
+    return n * fatorial(n - 1);
+}
+mout(fatorial(5));
+mout(fatorial(0));

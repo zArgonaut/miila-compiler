@@ -1,0 +1,9 @@
+int v[] = {5, 10, 15};
+int s = 0;
+for x in v {
+    s = s + x;
+}
+mout(s);
+foreach v {
+    mout(ci);
+}

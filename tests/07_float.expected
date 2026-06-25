@@ -5,14 +5,16 @@ int main(void) {
     int T2;
     float T3;
     float T4;
-    float T5;
+    int T5;
     float T6;
+    float T7;
 
     T2 = 2;
     T3 = (float) T2;
     T4 = T1 + T3;
-    T5 = 3.0;
-    T6 = T4 * T5;
-    T1 = T6;
+    T5 = 3;
+    T6 = (float) T5;
+    T7 = T4 * T6;
+    T1 = T7;
     return 0;
 }

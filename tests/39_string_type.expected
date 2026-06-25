@@ -1,10 +1,17 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+static char* milla_str_dup(const char* s) { char* r = (char*) malloc(strlen(s) + 1); strcpy(r, s); return r; }
 
 int main(void) {
-    char* T1; /* S */
+    char* T1 = NULL; /* S */
 
-    T1 = "hello";
+    free(T1);
+    T1 = milla_str_dup("hello");
     printf("%s\n", T1);
     printf("%s", T1);
+
+    free(T1);
     return 0;
 }
